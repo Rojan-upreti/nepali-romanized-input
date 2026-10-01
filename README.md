@@ -1,15 +1,18 @@
 # Lekhai — Romanized Nepali Input
 
-Lekhai is a full-stack app for typing Nepali in Romanized text and receiving a Devanagari result. The Next.js frontend sends input to a Spring Boot API, which processes it and returns JSON for display.
+Lekhai is a Spring Boot MVC app for typing Nepali in Romanized text and receiving a Devanagari result. Spring Boot renders the JSP page, and the page calls the same backend JSON endpoint for processing.
 
 ## File guide
 
-### Frontend
+### JSP frontend
 
-- `frontend/app/page.tsx` — interactive page with input, API request, loading/error states, result display, and copy action.
+- `backend/src/main/webapp/WEB-INF/jsp/index.jsp` — Spring-rendered single-page interface, including the input form and API call.
+- `backend/src/main/resources/static/css/app.css` — styles for the JSP interface.
+
+- `frontend/app/page.tsx` — optional Next.js version of the interface retained as a separate client frontend.
 - `frontend/app/layout.tsx` — shared Next.js document shell, metadata, and global stylesheet import.
 - `frontend/app/globals.css` — colors, typography, responsive layout, form, and result-card styles.
-- `frontend/package.json` — frontend scripts and Next.js/React dependencies.
+- `frontend/package.json` — optional Next.js frontend scripts and dependencies.
 - `frontend/package-lock.json` — reproducible npm dependency versions.
 - `frontend/next.config.mjs` — Next.js build configuration.
 - `frontend/next-env.d.ts` — Next.js TypeScript declarations.
@@ -27,7 +30,6 @@ Lekhai is a full-stack app for typing Nepali in Romanized text and receiving a D
 
 ```bash
 cd backend && mvn spring-boot:run
-cd frontend && npm run dev
 ```
 
-The frontend calls `http://localhost:8080/api/transliterate` by default. Set `NEXT_PUBLIC_API_URL` to use a different backend URL.
+Open `http://localhost:8080` to use the JSP interface. The page calls `/api/transliterate` internally.
